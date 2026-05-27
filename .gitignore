@@ -1,0 +1,29 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.dll
+*.pdb
+appsettings.Development.json
+
+# Angular
+node_modules/
+dist/
+.angular/
+.env
+
+# IDE
+.vs/
+.vscode/
+*.swp
+*.swo
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
