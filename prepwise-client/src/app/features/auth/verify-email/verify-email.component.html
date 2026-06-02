@@ -1,0 +1,38 @@
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-header">
+      <span class="auth-logo">📧</span>
+      <h1>Verify Your Email</h1>
+      <p>Enter the 6-digit code sent to <strong>{{ email }}</strong></p>
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-alert">{{ errorMessage }}</div>
+    }
+
+    @if (successMessage) {
+      <div class="success-alert">{{ successMessage }}</div>
+    }
+
+    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="form-group">
+        <label for="otpCode">Verification Code</label>
+        <input id="otpCode" type="text" formControlName="otpCode"
+               placeholder="Enter 6-digit code" maxlength="6"
+               style="text-align: center; font-size: 1.3rem; letter-spacing: 8px; font-weight: 700;" />
+        @if (verifyForm.get('otpCode')?.touched && verifyForm.get('otpCode')?.invalid) {
+          <span class="field-error">Enter a valid 6-digit code</span>
+        }
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="verifyForm.invalid || isLoading">
+        {{ isLoading ? 'Verifying...' : 'Verify Email' }}
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Didn't receive the code? Check your spam folder.</p>
+      <p><a routerLink="/auth/login">Back to Login</a></p>
+    </div>
+  </div>
+</div>
