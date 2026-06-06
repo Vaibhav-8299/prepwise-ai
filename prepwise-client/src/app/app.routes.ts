@@ -21,6 +21,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'resume/upload', loadComponent: () => import('./features/resume/upload/upload.component').then(m => m.UploadComponent) },
+      { path: 'resume/report/:id', loadComponent: () => import('./features/resume/report/report.component').then(m => m.ReportComponent) },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

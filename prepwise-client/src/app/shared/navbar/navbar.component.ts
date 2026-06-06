@@ -17,6 +17,7 @@ import { AsyncPipe } from '@angular/common';
       </div>
       <div class="navbar-links">
         <a routerLink="/dashboard" class="nav-link">Dashboard</a>
+        <a routerLink="/resume/upload" class="nav-link">Resume Analyzer</a>
       </div>
       <div class="navbar-user">
         @if (authService.currentUser$ | async; as user) {

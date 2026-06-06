@@ -1,0 +1,79 @@
+<div class="report-container">
+  
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading your AI analysis...</p>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+    <br><br>
+    <a routerLink="/resume/upload" class="back-link">← Back to Upload</a>
+  </div>
+
+  <div class="report-content" *ngIf="report && !isLoading">
+    
+    <div class="header">
+      <a routerLink="/resume/upload" class="back-link">← Analyze Another</a>
+      <div class="meta-info">
+        <span class="file-name">📄 {{ report.fileName }}</span>
+        <span class="date">{{ report.createdAt | date:'mediumDate' }}</span>
+      </div>
+      <h1>Analysis for <span class="highlight">{{ report.targetRole }}</span></h1>
+    </div>
+
+    <div class="top-cards">
+      <div class="score-card">
+        <h3>Match Score</h3>
+        <div class="score-circle" [style.borderColor]="getScoreColor()">
+          <span class="score-value" [style.color]="getScoreColor()">{{ report.score }}</span>
+          <span class="score-max">/100</span>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <h3>Executive Summary</h3>
+        <p>{{ report.summary }}</p>
+      </div>
+    </div>
+
+    <div class="details-grid">
+      
+      <div class="detail-card strengths">
+        <div class="card-header">
+          <span class="icon">✅</span>
+          <h3>Key Strengths</h3>
+        </div>
+        <ul>
+          <li *ngFor="let item of report.strengths">{{ item }}</li>
+          <li *ngIf="report.strengths.length === 0" class="empty">No specific strengths highlighted.</li>
+        </ul>
+      </div>
+
+      <div class="detail-card missing">
+        <div class="card-header">
+          <span class="icon">⚠️</span>
+          <h3>Missing Skills</h3>
+        </div>
+        <ul>
+          <li *ngFor="let item of report.missingSkills">{{ item }}</li>
+          <li *ngIf="report.missingSkills.length === 0" class="empty">No missing skills identified!</li>
+        </ul>
+      </div>
+
+      <div class="detail-card improvements full-width">
+        <div class="card-header">
+          <span class="icon">💡</span>
+          <h3>Improvement Areas (Actionable)</h3>
+        </div>
+        <ul>
+          <li *ngFor="let item of report.improvementAreas">{{ item }}</li>
+          <li *ngIf="report.improvementAreas.length === 0" class="empty">No improvement areas suggested.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

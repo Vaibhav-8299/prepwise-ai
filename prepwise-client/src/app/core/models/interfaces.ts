@@ -58,3 +58,17 @@ export interface StoredUser {
   email: string;
   role: string;
 }
+
+// ===== Resume Analyzer =====
+export interface ResumeReport {
+  id: number;
+  resumeId: number;
+  fileName: string;
+  targetRole: string;
+  score: number;
+  summary: string;
+  strengths: string[];
+  improvementAreas: string[];
+  missingSkills: string[];
+  createdAt: string;
+}
