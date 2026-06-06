@@ -10,6 +10,8 @@ namespace PrepWiseAPI.Data
         public DbSet<User> Users { get; set; }
         public DbSet<OtpRecord> OtpRecords { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Resume> Resumes { get; set; }
+        public DbSet<ResumeReport> ResumeReports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,6 +57,35 @@ namespace PrepWiseAPI.Data
                 entity.HasOne(r => r.User)
                       .WithMany(u => u.RefreshTokens)
                       .HasForeignKey(r => r.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // ===== Resumes Table =====
+            modelBuilder.Entity<Resume>(entity =>
+            {
+                entity.HasKey(r => r.Id);
+                entity.Property(r => r.FileName).IsRequired().HasMaxLength(255);
+                entity.Property(r => r.FilePath).IsRequired().HasMaxLength(500);
+                entity.Property(r => r.TargetRole).IsRequired().HasMaxLength(100);
+
+                entity.HasOne(r => r.User)
+                      .WithMany()
+                      .HasForeignKey(r => r.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // ===== ResumeReports Table =====
+            modelBuilder.Entity<ResumeReport>(entity =>
+            {
+                entity.HasKey(r => r.Id);
+                entity.Property(r => r.Summary).IsRequired().HasMaxLength(2000);
+                entity.Property(r => r.Strengths).IsRequired().HasMaxLength(2000);
+                entity.Property(r => r.ImprovementAreas).IsRequired().HasMaxLength(2000);
+                entity.Property(r => r.MissingSkills).IsRequired().HasMaxLength(2000);
+
+                entity.HasOne(r => r.Resume)
+                      .WithOne(res => res.Report)
+                      .HasForeignKey<ResumeReport>(r => r.ResumeId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
         }
