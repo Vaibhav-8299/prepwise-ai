@@ -40,6 +40,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<JwtHelper>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddHttpClient<GeminiService>();
+builder.Services.AddScoped<ResumeService>();
 
 // ===== CORS (Allow Angular app) =====
 builder.Services.AddCors(options =>
